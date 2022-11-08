@@ -14,6 +14,7 @@ router.put("/likePost/:id", postsController.likePost);
 
 router.delete("/deletePost/:id", postsController.deletePost);
 
+router.get("/getvote/:id", votesController.getVotes);
 router.put("/vote/:id", votesController.castVote);
 
 module.exports = router;

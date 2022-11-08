@@ -1,4 +1,5 @@
 <%- include('partials/header') -%>
+<div class="d-none secret-keeper" id="<%= post.id %>"></div>
 <div class="container">
   <div class="row justify-content-center mt-5">
     <div class="col-8">
@@ -16,7 +17,10 @@
         <%}%>
       </div>
     </div>
-    <div class="col-2 my-auto" >
+    <!-- Show voting form if votes[] wasn't passed in, otherwise show results -->
+
+      <div class="col-2 my-auto" >
+        <% if (!votes) {%>
       <form  action="/post/vote/<%= post.id %>?_method=PUT" method="POST" id="vote-form">
         <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
           <input type="radio" class="btn-check" name="vote" id="toast" value="toast" autocomplete="off" checked="">
@@ -36,24 +40,20 @@
           <button class="btn btn-primary" type="submit" id="vote-btn">VOTE</button>
         </div>
       </form>
-      <!-- Hide below by default. In JS - when vote is cast, hide form and unhide below. Calculate percentages and fill out vote counts -->
-      <div class="btn-group-vertical d-none mt-5" role="group" id="results" aria-label="Vertical listing of results">
+      <% } else { %>
+        <div class="btn-group-vertical mt-5" role="group" id="results" aria-label="Vertical listing of results">
+<%= console.log(votes) %>
+        <div class="btn btn-outline-info" id="toast-result">Toast: <%= votes['toast']%></div>
+        <div class="btn btn-outline-info" id="sandwich-result">Sandwich: <%= votes['sandwich']%></div>
+        <div class="btn btn-outline-info" id="taco-result">Taco: <%= votes['taco']%></div>
+        <div class="btn btn-outline-info" id="sushi-result">Sushi: <%= votes['sushi']%></div>
+        <div class="btn btn-outline-info" id="breadbowl-result">Soup w/ bread bowl: <%= votes['breadbowl']%></div>
+        <div class="btn btn-outline-info" id="calzone-result">Calzone: <%= votes['calzone']%></div>
+        <div class="btn btn-outline-info" id="salad-result">Salad: <%= votes['salad']%></div>
 
-        <div class="btn btn-outline-info" id="toast-result">Toast</div>
-
-        <div class="btn btn-outline-info" id="sandwich-result">Sandwich</div>
-
-        <div class="btn btn-outline-info" id="taco-result">Taco</div>
-
-        <div class="btn btn-outline-info" id="sushi-result">Sushi</div>
-
-        <div class="btn btn-outline-info" id="breadbowl-result">Soup w/ bread bowl</div>
-
-        <div class="btn btn-outline-info" id="calzone-result">Calzone</div>
-        <div class="btn btn-outline-info" id="salad-result">Salad</div>
-
+        </div>
       </div>
-    </div>
+    <% } %>
     <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
@@ -61,5 +61,5 @@
   </div>
 </div>
 
-<script src="js/results.js"></script>
+<!-- <script src="../js/results.js"></script> -->
 <%- include('partials/footer') -%>
