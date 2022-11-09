@@ -1,7 +1,7 @@
 {
-  "name": "fullstack-template",
+  "name": "is-this-a-sandwich",
   "version": "1.0.0",
-  "description": "Starter template for future projects",
+  "description": "Classify foods by the cube rule",
   "main": "server.js",
   "scripts": {
     "start": "server.js",
