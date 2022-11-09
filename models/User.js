@@ -21,13 +21,12 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  userName: { type: String, unique: true },
-  email: { type: String, unique: true },
+  userName: { type: String},
+  email: { type: String},
   password: String,
   likes: {type: Number, default: 0},
   image: { type: String, required: false },
-  cloudinaryId: { type: String, required: false },
-  cats: { type: Array, required: false },
+  cloudinaryId: { type: String, required: false }
 });
 
 // Password hash middleware.
