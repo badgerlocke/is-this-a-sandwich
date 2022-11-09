@@ -1,6 +1,12 @@
 <%- include('partials/header') -%>
 
 <main class="container">
+  <div class="divider"></div>
+<div class="section">
+    <a href="/auth/google" class="btn red darken-1">
+        <i class="fab fa-google left"></i> Log In With Google
+    </a>
+</div>
   <div class="row justify-content-center">
     <section class="col-6 mt-5">
       <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>

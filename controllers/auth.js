@@ -7,7 +7,7 @@ exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect("/profile");
   }
-  res.render("login", {
+  res.render("login-trial", {
     title: "Login",
   });
 };
@@ -21,7 +21,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    return res.redirect("/login");
+    return res.redirect("/login-trial");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
@@ -33,7 +33,7 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
-      return res.redirect("/login");
+      return res.redirect("/login-trial");
     }
     req.logIn(user, (err) => {
       if (err) {
