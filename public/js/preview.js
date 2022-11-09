@@ -35,7 +35,7 @@
 
     global.addEventListener("load", function windowLoadHandler() {
         global.removeEventListener("load", windowLoadHandler);
-        chooseFiles = document.getElementById("chooseFiles");
+        chooseFiles = document.getElementById("imageUpload");
         columns = document.getElementById("columns");
         previews = document.getElementById("previews");
 

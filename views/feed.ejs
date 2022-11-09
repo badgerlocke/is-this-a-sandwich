@@ -1,13 +1,17 @@
 <%- include('partials/header') -%>
   <div class="container">
+    <h5 class="text-center mt-4">Click an image to vote</h5>
     <div class="row justify-content-center mt-5">
       <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
-            </a>
-          </li>
+          <!-- <div class="border"> -->
+            <li class="col-6 justify-content-between mt-5 text-center">
+              <p><%= posts[i].title %></p>
+              <a href="/post/<%= posts[i]._id%>">
+                <img class="img-fluid" src="<%= posts[i].image%>">
+              </a>
+            </li>
+          <!-- </div> -->
         <% } %>
         </ul>
     </div>
