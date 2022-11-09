@@ -1,10 +1,8 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
-const cloudinary = require("../middleware/cloudinary");
 
 exports.getLogin = (req, res) => {
-  console.log(`getLogin user:  ${req.user}`)
   if (req.user) {
     return res.redirect("/home");
   }
@@ -41,7 +39,7 @@ exports.postLogin = (req, res, next) => {
         return next(err);
       }
       req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/profile");
+      res.redirect(req.session.returnTo || "/home");
     });
   })(req, res, next);
 };
@@ -54,7 +52,7 @@ exports.logout = (req, res) => {
     if (err)
       console.log("Error : Failed to destroy the session during logout.", err);
     req.user = null;
-    res.redirect("/login");
+    res.redirect("/");
   });
 };
 
@@ -67,13 +65,7 @@ exports.getSignup = (req, res) => {
   });
 };
 
-exports.postSignup = async (req, res, next) => {
-  // if ()
-  // try { 
-  //         // Upload image to cloudinary
-  //         const result = await cloudinary.uploader.upload(req.file.path);
-  // }
-  //Validate user data
+exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
@@ -91,15 +83,13 @@ exports.postSignup = async (req, res, next) => {
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
-  //Create new user
+
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,
     password: req.body.password,
-    image: 131,
-    cloudinaryID: 111
   });
-  //Check if there's already an account with this email or username
+
   User.findOne(
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
     (err, existingUser) => {
