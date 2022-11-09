@@ -4,6 +4,7 @@ const User = require("../models/User");
 const cloudinary = require("../middleware/cloudinary");
 
 exports.getLogin = (req, res) => {
+  console.log(`getLogin user:  ${req.user}`)
   if (req.user) {
     return res.redirect("/home");
   }
@@ -27,22 +28,6 @@ exports.postLogin = (req, res, next) => {
     gmail_remove_dots: false,
   });
 
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      req.flash("errors", info);
-      return res.redirect("/login");
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/home");
-    });
-  })(req, res, next);
 };
 
 exports.logout = (req, res) => {
@@ -53,7 +38,7 @@ exports.logout = (req, res) => {
     if (err)
       console.log("Error : Failed to destroy the session during logout.", err);
     req.user = null;
-    res.redirect("/");
+    res.redirect("/login");
   });
 };
 
