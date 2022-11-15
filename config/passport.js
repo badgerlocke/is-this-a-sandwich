@@ -15,8 +15,9 @@ module.exports = function (passport) {
         const newUser = {
           googleId: profile.id,
           userName: profile.displayName,
+          email: profile.emails[0].value
         }
-
+        // console.log(`New user: ${JSON.stringify(newUser)}`)
         try {
           let user = await User.findOne({ googleId: profile.id })
 
