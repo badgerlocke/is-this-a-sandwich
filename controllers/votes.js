@@ -3,13 +3,15 @@ const Post = require("../models/Post");
 const tallyVotes = (votes) => {
   // console.log(votes)
   let count = {
+    salad: 0,
     toast: 0,
     sandwich: 0,
     taco: 0,
     sushi: 0,
     breadbowl: 0,
     calzone: 0,
-    salad: 0
+    cake: 0,
+    nachos: 0,
   }
   for (let i=0; i<votes.length; i++) {
     console.log(votes[i])

@@ -1,0 +1,65 @@
+<%- include('partials/header') -%>
+<link rel="stylesheet" href="css/style.css">
+<div class="container">
+  <div class="row">
+      <div class="col-6">
+        <div class="p-4">
+        <h2>The Cube Rule of Foods</h2>
+        <div class="py-5 px-auto m-2">
+          <img class="img-fluid" src="is-this-a-sandwich.png" alt="A meme where a man is looking at a taco and saying 'is this a sandwich?'">
+        </div>
+        <p>Did you know that under New York state tax law, a hot dog is legally a sandwich? This discovery led the internet to develop a method of classifying foods based on how many sides were starches. For example,by the cube rule, a hamburger is a sandwich while a hot dog is a taco. If you're confused, so were we. <br><a href="https://cuberule.com/">Click here for a more detailed explanation.</a><br><br>
+          And here's a handy infographic:
+        </p>
+        <div class="py-5 px-auto m-2">
+          <img class="img-fluid" src="cube-rule.jpeg" alt="A diagram showing how to classify foods via the cube rule">
+        </div>
+      </div>
+      </div>  
+      <div class="col-6">
+        <div class="p-4">
+        <!-- <div> -->
+            <!-- <p>Welcome  <%= user.displayName %>!</p> -->
+            <!-- <p><strong>Email</strong>: <%= user.email %></p> -->
+            <!-- <p><strong>You've rated </strong> <%= user.likes %> foods.</p> -->
+            <!-- <a href="/logout" class="col-3 btn btn-secondary">Logout</a> -->
+        <!-- </div> -->
+        <div class="mt-5">
+          <h2>Add a food</h2>
+          <p>Post a pic and let strangers on the internet tell you what kind of food it is!</p>
+          <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
+
+            <div class="mb-3">
+              <label for="imgUpload" class="form-label">Add image</label>
+              <input type="file" class="form-control" id="imageUpload" name="file">
+              <table id="previewTable">
+                <thead id="columns"></thead>
+                <tbody id="previews"></tbody>
+            </table>
+            </div>
+            <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+          </form>
+        </div>
+        <hr class="hr" />
+        <h2 class="mt-5">Vote on food classifications</h2>
+        <div class="row justify-content-center mt-5">
+          <a class="btn btn-primary" href="/feed">View posts</a>
+        </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+<script src="js/preview.js"></script>
+
+<div class="container mt-5">
+  <div class="row text-center">
+      <a href="/logout" class="col-3 btn btn-secondary">Logout</a>
+  </div>
+</div>
+
+<%- include('partials/footer') -%>

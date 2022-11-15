@@ -1,13 +1,12 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
-const cloudinary = require("../middleware/cloudinary");
 
 exports.getLogin = (req, res) => {
   if (req.user) {
-    return res.redirect("/profile");
+    return res.redirect("/home");
   }
-  res.render("login-trial", {
+  res.render("login", {
     title: "Login",
   });
 };
@@ -21,7 +20,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    return res.redirect("/login-trial");
+    return res.redirect("/login");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
@@ -33,14 +32,14 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
-      return res.redirect("/login-trial");
+      return res.redirect("/login");
     }
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
       req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/profile");
+      res.redirect(req.session.returnTo || "/home");
     });
   })(req, res, next);
 };
@@ -63,7 +62,7 @@ exports.logout = (req, res) => {
 
 exports.getSignup = (req, res) => {
   if (req.user) {
-    return res.redirect("/profile");
+    return res.redirect("/home");
   }
   res.render("signup", {
     title: "Create Account",
@@ -89,15 +88,13 @@ exports.postSignup = async (req, res, next) => {
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
-  //Create new user
+
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,
     password: req.body.password,
-    image: 131,
-    cloudinaryID: 111
   });
-  //Check if there's already an account with this email or username
+
   User.findOne(
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
     (err, existingUser) => {
@@ -118,7 +115,7 @@ exports.postSignup = async (req, res, next) => {
           if (err) {
             return next(err);
           }
-          res.redirect("/profile");
+          res.redirect("/home");
         });
       });
     }

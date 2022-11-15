@@ -3,18 +3,16 @@
 <div class="container">
   <div class="row justify-content-center mt-5">
     <div class="col-8">
-      <h2><%= post.title %></h2>
-      <img class="img-fluid" src="<%= post.image%>" />
-      <div class="row justify-content-between mt-1">
-        <form class="col-1" action="/post/likePost/<%= post.id %>?_method=PUT" method="POST">
-          <button class="btn btn-primary fa fa-heart" type="submit"></button>
-        </form>
-        <h3 class="col-3">Likes: <%= post.likes %></h3>
-        <%if(post.user == user.id){ %>
+      <h2><%= post.title %></h2>        
+      <%if(post.user == user.id){ %>
         <form action="/post/deletePost/<%= post.id %>?_method=DELETE" method="POST" class="col-3">
           <button class="btn btn-primary fa fa-trash" type="submit"></button>
         </form>
         <%}%>
+      <img class="img-fluid" src="<%= post.image%>" />
+      <div class="col-6 mt-5">
+        <a class="btn btn-primary" href="/home">Return to Home</a>
+        <a class="btn btn-primary" href="/feed">Return to Feed</a>
       </div>
     </div>
     <!-- Show voting form if votes[] wasn't passed in, otherwise show results -->
@@ -23,41 +21,44 @@
         <% if (!votes) {%>
       <form  action="/post/vote/<%= post.id %>?_method=PUT" method="POST" id="vote-form">
         <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-          <input type="radio" class="btn-check" name="vote" id="toast" value="toast" autocomplete="off" checked="">
-          <label class="btn btn-outline-primary" for="toast">Toast</label>
-          <input type="radio" class="btn-check" name="vote" id="sandwich" value="sandwich" autocomplete="off">
-          <label class="btn btn-outline-primary" for="sandwich">Sandwich</label>
-          <input type="radio" class="btn-check" name="vote" id="taco" value="taco" autocomplete="off">
-          <label class="btn btn-outline-primary" for="taco">Taco</label>
-          <input type="radio" class="btn-check" name="vote" id="sushi" value="sushi" autocomplete="off">
-          <label class="btn btn-outline-primary" for="sushi">Sushi</label>
-          <input type="radio" class="btn-check" name="vote" id="breadbowl" value="breadbowl" autocomplete="off">
-          <label class="btn btn-outline-primary" for="breadbowl">Soup w/ bread bowl</label>
-          <input type="radio" class="btn-check" name="vote" id="calzone" value="calzone" autocomplete="off">
-          <label class="btn btn-outline-primary" for="calzone">Calzone</label>
           <input type="radio" class="btn-check" name="vote" id="salad" value="salad" autocomplete="off">
-          <label class="btn btn-outline-primary" for="salad">Salad</label>
+          <label class="btn btn-outline-primary" for="salad" title="No carbs">Salad</label>
+          <input type="radio" class="btn-check" name="vote" id="toast" value="toast" autocomplete="off" checked="">
+          <label class="btn btn-outline-primary" for="toast" title="Carb on one side">Toast</label>
+          <input type="radio" class="btn-check" name="vote" id="sandwich" value="sandwich" autocomplete="off">
+          <label class="btn btn-outline-primary" for="sandwich" title="Carb on opposite sides (but not connected)">Sandwich</label>
+          <input type="radio" class="btn-check" name="vote" id="taco" value="taco" autocomplete="off">
+          <label class="btn btn-outline-primary" for="taco" title="Carb on three sides">Taco</label>
+          <input type="radio" class="btn-check" name="vote" id="sushi" value="sushi" autocomplete="off">
+          <label class="btn btn-outline-primary" for="sushi" title="Carb wrapped around 4 sides">Sushi</label>
+          <input type="radio" class="btn-check" name="vote" id="breadbowl" value="breadbowl" autocomplete="off">
+          <label class="btn btn-outline-primary" for="breadbowl" title="Carb on all sides but one">Soup w/ bread bowl</label>
+          <input type="radio" class="btn-check" name="vote" id="calzone" value="calzone" autocomplete="off">
+          <label class="btn btn-outline-primary" for="calzone" title="Completely enclosed">Calzone</label>
+          <input type="radio" class="btn-check" name="vote" id="cake" value="cake" autocomplete="off">
+          <label class="btn btn-outline-primary" for="cake" title="A stack of three or more carbs, with or without something in between">Cake</label>
+          <input type="radio" class="btn-check" name="vote" id="nachos" value="nachos" autocomplete="off">
+          <label class="btn btn-outline-primary" for="nachos" title="The real carb is the one within">Nachos</label>
           <button class="btn btn-primary" type="submit" id="vote-btn">VOTE</button>
         </div>
       </form>
       <% } else { %>
         <div class="btn-group-vertical mt-5" role="group" id="results" aria-label="Vertical listing of results">
 <%= console.log(votes) %>
+        <div class="btn btn-outline-info font-weight-bold"><h3>Results</h3></div>
+        <div class="btn btn-outline-info" id="salad-result">Salad: <%= votes['salad']%></div>
         <div class="btn btn-outline-info" id="toast-result">Toast: <%= votes['toast']%></div>
         <div class="btn btn-outline-info" id="sandwich-result">Sandwich: <%= votes['sandwich']%></div>
         <div class="btn btn-outline-info" id="taco-result">Taco: <%= votes['taco']%></div>
         <div class="btn btn-outline-info" id="sushi-result">Sushi: <%= votes['sushi']%></div>
         <div class="btn btn-outline-info" id="breadbowl-result">Soup w/ bread bowl: <%= votes['breadbowl']%></div>
         <div class="btn btn-outline-info" id="calzone-result">Calzone: <%= votes['calzone']%></div>
-        <div class="btn btn-outline-info" id="salad-result">Salad: <%= votes['salad']%></div>
-
+        <div class="btn btn-outline-info" id="cake-result">Cake: <%= votes['cake']%></div>
+        <div class="btn btn-outline-info" id="nachos-result">Nachos: <%= votes['nachos']%></div>
         </div>
       </div>
     <% } %>
-    <div class="col-6 mt-5">
-      <a class="btn btn-primary" href="/profile">Return to Profile</a>
-      <a class="btn btn-primary" href="/feed">Return to Feed</a>
-    </div>
+
   </div>
 </div>
 
