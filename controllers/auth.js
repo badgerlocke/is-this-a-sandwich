@@ -43,6 +43,10 @@ exports.postLogin = (req, res, next) => {
     });
   })(req, res, next);
 };
+passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets.readonly'], accessType: 'offline', prompt: 'consent' })
+
+
+
 
 exports.logout = (req, res) => {
   req.logout(() => {
@@ -65,7 +69,8 @@ exports.getSignup = (req, res) => {
   });
 };
 
-exports.postSignup = (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
+  //Validate user data
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
