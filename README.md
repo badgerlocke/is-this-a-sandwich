@@ -1,20 +1,11 @@
 # About
 
-A social media app where cats can post pictures of themselves, gain points, and blast off into the cat dimension.
+Did you know that under New York state tax law, a hot dog is legally a sandwich? This discovery led the internet to develop a method of classifying foods based on how many sides were starches. For example,by the cube rule, a hamburger is a sandwich while a hot dog is a taco. If you're confused, so were we.
+[Click here for a more detailed explanation.](https://cuberule.com/)
 
-Work in progress! Currently building the social media side.
-Todo:
-  Improve layout
-  Comments:
-  - Allow editing of comments
-  - Allow liking of comments
-  Create "admin" accounts 
-  - Remove ability of non-admins to post (to keep things clean for demo version)
-  Add leaderboard
+This is a silly social media app where users can vote on how various foods should be classified. 
 
-
-  Stretch goals:
-  - Add photo recognition to automatically remove images that don't contain cats
+[See a demo here.](https://shy-erin-wombat-tie.cyclic.app/)
 
 # Install
 
